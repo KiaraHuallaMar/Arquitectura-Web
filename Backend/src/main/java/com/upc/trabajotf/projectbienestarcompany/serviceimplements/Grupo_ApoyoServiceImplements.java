@@ -13,25 +13,25 @@ public class Grupo_ApoyoServiceImplements implements Grupo_ApoyoServiceInterface
     @Autowired
     Grupo_ApoyoRepository grupoApoyoRepository;
 
-    //Listar Boton Sos
+    //Listar Grupo Apoyo
     @Override
     public List<Grupo_Apoyo> listar() {return grupoApoyoRepository.findAll();}
 
-    //Registrar Boton Sos
+    //Registrar Grupo Apoyo
     @Override
     public Grupo_Apoyo registrar(Grupo_Apoyo grupoApoyo) {return grupoApoyoRepository.save(grupoApoyo);}
 
-    //Listar por Id Boton Sos
+    //Listar por Id Grupo Apoyo
     @Override
     public Grupo_Apoyo listarId(int id) {
         return grupoApoyoRepository.findById(id).orElse(new Grupo_Apoyo());
     }
 
-    //Actualizar Boton Sos
+    //Actualizar Grupo Apoyo
     @Override
     public void actualizar(Grupo_Apoyo grupoApoyo) {grupoApoyoRepository.save(grupoApoyo); }
 
-    //Eliminar Boton Sos
+    //Eliminar Grupo Apoyo
     @Override
     public void eliminar(int id) {
         grupoApoyoRepository.deleteById(id);

@@ -5,10 +5,7 @@ import com.upc.trabajotf.projectbienestarcompany.entities.Cita;
 import com.upc.trabajotf.projectbienestarcompany.serviceinterfaces.CitaServiceInterfaces;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,42 +18,41 @@ public class CitaController {
 
     //Listar Cita
     @GetMapping
-    public List<CitaDTO> obtenerListadoCitas(){
+    public List<CitaDTO> obtenerListadoCitas() {
 
-        return citaServiceInterfaces.listar().stream().map(x->{
-            ModelMapper m=new ModelMapper();
-            return m.map(x,CitaDTO.class);
+        return citaServiceInterfaces.listar().stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, CitaDTO.class);
         }).collect(Collectors.toList());
     }
+
     //Registrar Cita
-    @PostMapping("/registrar")
-    public ResponseEntity<CitaDTO> registrar(@RequestBody CitaDTO citaDTO) {
-        Cita cita;
-        try {
-            cita = convertToEntity(citaDTO);
-            citaDTO = convertToDto(citaServiceInterfaces.registrar(cita));
-        }catch(Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se pudo crear, lo siento", e);
-        }
-        return new ResponseEntity<CitaDTO>(citaDTO, HttpStatus.OK);
+    @PostMapping
+    public void registrar(@RequestBody CitaDTO citaDTO){
+        ModelMapper m = new ModelMapper();
+        Cita cita = m.map(citaDTO, Cita.class);
+        citaServiceInterfaces.registrar(cita);
     }
 
-    //OTROS
-    private CitaDTO convertToDto(Cita cita) {
-        ModelMapper modelMapper = new ModelMapper();
-        CitaDTO citaDTO = modelMapper.map(cita, CitaDTO.class);
+    //Listar por Id Cita
+    @GetMapping("/{id}")
+    public CitaDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        CitaDTO citaDTO=m.map(citaServiceInterfaces.listarId(id),CitaDTO.class);
         return citaDTO;
     }
 
-    private Cita convertToEntity(CitaDTO citaDTO) {
-        ModelMapper modelMapper = new ModelMapper();
-        Cita post = modelMapper.map(citaDTO, Cita.class);
-        return post;
+    //Actualizar Cita
+    @PutMapping
+    public void actualizar(@RequestBody CitaDTO citaDTO){
+        ModelMapper m=new ModelMapper();
+        Cita cita=m.map(citaDTO,Cita.class);
+        citaServiceInterfaces.actualizar(cita);
     }
 
-    private List<CitaDTO> convertToListDto(List<Cita> list){
-        return list.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    //Eliminar Cita
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable("id") Integer id){
+        citaServiceInterfaces.eliminar(id);
     }
 }

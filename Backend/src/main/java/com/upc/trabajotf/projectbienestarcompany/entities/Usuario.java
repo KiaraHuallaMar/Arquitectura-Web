@@ -18,16 +18,10 @@ public class Usuario {
     private int id;
 
     @Column(name = "usuario", length = 50, nullable = false, unique = true )
-    private String usuario;
+    private String usuario_name;
 
     @Column(name = "contrasena", length = 200, nullable = false )
     private String contrasena;
-
-    @Column(name = "nombre", length = 50, nullable = false )
-    private String nombre;
-
-    @Column(name = "apellido", length = 50, nullable = false )
-    private String apellido;
 
     @Column(name = "edad", nullable = false)
     private int edad;
@@ -40,4 +34,12 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "id_Rol")
     private Rol rol;
+
+    @ManyToOne
+    @JoinColumn(name = "id_Grupo_Apoyo")
+    private Grupo_Apoyo grupoApoyo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_Tratamiento")
+    private Tratamiento tratamiento;
 }

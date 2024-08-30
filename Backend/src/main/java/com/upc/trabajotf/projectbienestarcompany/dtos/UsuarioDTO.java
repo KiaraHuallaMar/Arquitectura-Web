@@ -1,6 +1,8 @@
 package com.upc.trabajotf.projectbienestarcompany.dtos;
 
+import com.upc.trabajotf.projectbienestarcompany.entities.Grupo_Apoyo;
 import com.upc.trabajotf.projectbienestarcompany.entities.Rol;
+import com.upc.trabajotf.projectbienestarcompany.entities.Tratamiento;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +10,7 @@ import lombok.Setter;
 @Setter
 
 public class UsuarioDTO {
+
     private int id;
 
     private String usuario;
@@ -25,4 +28,8 @@ public class UsuarioDTO {
     private Boolean enabled;
 
     private Rol rol;
+
+    private Grupo_Apoyo grupoApoyo;
+
+    private Tratamiento tratamiento;
 }

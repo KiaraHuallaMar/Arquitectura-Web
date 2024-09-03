@@ -29,5 +29,5 @@ public class Cita {
     @ManyToOne(targetEntity = Usuario.class)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-
+//comentario
 }
